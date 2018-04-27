@@ -5,7 +5,8 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 
 import com.sung.digital.R;
@@ -18,10 +19,17 @@ import java.util.List;
  * Created by sung on 2018/4/24.
  */
 
-public class TabIndicatorView extends LinearLayout {
+public class TabIndicatorView extends LinearLayout implements Animation.AnimationListener {
     public static final String TAG = TabIndicatorView.class.getSimpleName();
+    private OnTabIndicatorSelectListener onTabIndicatorSelectListener;
     private List<TabIndicatorModel> models = new ArrayList();
     private List<TabIndicator> indicators = new ArrayList();
+
+    private Animation show;
+    private Animation hide;
+
+    private boolean isShow = true;
+    private boolean animationing = false;
 
     public TabIndicatorView(Context context) {
         super(context);
@@ -38,7 +46,7 @@ public class TabIndicatorView extends LinearLayout {
         initView();
     }
 
-    private void initData(){
+    private void initData() {
         TabIndicatorModel tab1 = new TabIndicatorModel("照片", R.drawable.ic_menu_camera);
         TabIndicatorModel tab2 = new TabIndicatorModel("相册", R.drawable.ic_menu_gallery);
         TabIndicatorModel tab3 = new TabIndicatorModel("发送", R.drawable.ic_menu_send);
@@ -49,7 +57,7 @@ public class TabIndicatorView extends LinearLayout {
         models.add(tab4);
     }
 
-    private void initView(){
+    private void initView() {
         initData();
         if (models == null || models.isEmpty()) return;
         this.setGravity(LinearLayout.HORIZONTAL | Gravity.CENTER);
@@ -60,10 +68,10 @@ public class TabIndicatorView extends LinearLayout {
         this.select(0);
     }
 
-    private void addIndicator(final int position){
+    private void addIndicator(final int position) {
         if (models == null) models = new ArrayList<>();
 
-        TabIndicator indicator = new TabIndicator(this.getContext(),models.get(position));
+        TabIndicator indicator = new TabIndicator(this.getContext(), models.get(position));
         indicator.setTag(position);
         indicator.bindParent(this);
         indicators.add(indicator);
@@ -71,7 +79,7 @@ public class TabIndicatorView extends LinearLayout {
         LinearLayout.LayoutParams params =
                 new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT);
         params.weight = 1;
-        this.addView(indicator,params);
+        this.addView(indicator, params);
 
         indicator.setOnClickListener(new OnClickListener() {
             @Override
@@ -81,23 +89,70 @@ public class TabIndicatorView extends LinearLayout {
         });
     }
 
-    public void select(int position){
+    public void select(int position) {
         for (int i = 0; i < indicators.size(); i++) {
             TabIndicator indicator = indicators.get(i);
-            if (i == position){
+            if (i == position) {
                 indicator.selected();
-            }else {
+                if (onTabIndicatorSelectListener != null) {
+                    onTabIndicatorSelectListener.onTabSelect(position);
+                }
+            } else {
                 indicator.unselected();
             }
         }
     }
 
-    public void show(){
+    public void show() {
+        if (isShow || animationing) return;
+        if (show == null) {
+            show = AnimationUtils.loadAnimation(getContext(), R.anim.dialog_slide_down);
+            show.setFillAfter(true);
+            show.setAnimationListener(this);
+        }
+        isShow = true;
+        this.startAnimation(show);
+    }
+
+    public void hide() {
+        if (!isShow || animationing) return;
+        if (hide == null) {
+            hide = AnimationUtils.loadAnimation(getContext(), R.anim.dialog_slide_up);
+            hide.setFillAfter(true);
+            hide.setAnimationListener(this);
+        }
+        isShow = false;
+        this.startAnimation(hide);
+    }
+
+    @Override
+    public void onAnimationStart(Animation animation) {
+        animationing = true;
+    }
+
+    @Override
+    public void onAnimationEnd(Animation animation) {
+        animationing = false;
+    }
+
+    @Override
+    public void onAnimationRepeat(Animation animation) {
 
     }
 
-    public void hide(){
-
+    public void setShowState(boolean show) {
+        isShow = show;
     }
 
+    public boolean isShow() {
+        return isShow;
+    }
+
+    public interface OnTabIndicatorSelectListener {
+        void onTabSelect(int position);
+    }
+
+    public void addOnTabIndicatorSelectListener(OnTabIndicatorSelectListener onTabIndicatorSelectListener) {
+        this.onTabIndicatorSelectListener = onTabIndicatorSelectListener;
+    }
 }

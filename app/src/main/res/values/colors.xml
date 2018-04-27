@@ -4,6 +4,9 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <color name="colorTheme">#ffffff</color>
+    <color name="colorDivider">#28cdcdcd</color>
+
     <color name="view_indicator_default_color">#60000000</color>
     <color name="view_indicator_select_color">#ff000000</color>
 </resources>
