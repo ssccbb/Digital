@@ -11,6 +11,7 @@
 
     <ImageView
         android:id="@+id/icon"
+        android:scaleType="fitCenter"
         tools:src="@mipmap/ic_launcher"
         android:layout_width="@dimen/view_tab_indicator_width"
         android:layout_height="@dimen/view_tab_indicator_width" />

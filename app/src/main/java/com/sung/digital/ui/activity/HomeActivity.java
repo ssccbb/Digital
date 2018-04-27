@@ -7,7 +7,9 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +22,7 @@ import com.sung.digital.widget.TabIndicatorView;
 public class HomeActivity extends BaseActivity implements Toolbar.OnMenuItemClickListener,
         ViewPager.OnPageChangeListener, TabIndicatorView.OnTabIndicatorSelectListener, View.OnClickListener{
     private AppBarLayout mAppBar;
+    private DrawerLayout mDrawerLayout;
     private Toolbar mToolBar;
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
@@ -32,12 +35,16 @@ public class HomeActivity extends BaseActivity implements Toolbar.OnMenuItemClic
 
     @Override
     public void initView() {
+        mDrawerLayout = findViewById(R.id.drawer_layout);
         mTabLayout = findViewById(R.id.tab_layout);
         mAppBar = findViewById(R.id.app_bar_layout);
         mToolBar = findViewById(R.id.tool_bar);
         mViewPager = findViewById(R.id.view_pager);
         mIndicator = findViewById(R.id.tab_indicator);
+    }
 
+    @Override
+    public void initData() {
         /***Toolbar*/
         mToolBar.setTitle(R.string.app_name);
         mToolBar.setNavigationIcon(R.mipmap.ic_menu_list);
@@ -45,28 +52,22 @@ public class HomeActivity extends BaseActivity implements Toolbar.OnMenuItemClic
         mToolBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toastShort("menu");
+                openDrawerLayout();
             }
         });
         mToolBar.setOnMenuItemClickListener(this);
-        /***TabLayout*/
-//        mTabLayout.setVisibility(View.VISIBLE);
-//        mTabLayout.addTab(mTabLayout.newTab().setText("TAB 1"));
-//        mTabLayout.addTab(mTabLayout.newTab().setText("TAB 2"));
-//        mTabLayout.addTab(mTabLayout.newTab().setText("TAB 3"));
-//        mTabLayout.setupWithViewPager(mViewPager);
         /***ViewPager*/
         HomePagerAdapter adapter =
                 new HomePagerAdapter(this, getSupportFragmentManager());
         mViewPager.setAdapter(adapter);
         mViewPager.setOffscreenPageLimit(0);
         mViewPager.addOnPageChangeListener(this);
+        /***TabLayout*/
+        adapter.getItem(1).bindViewPager(mTabLayout);
         /***Indicator*/
         mIndicator.addOnTabIndicatorSelectListener(this);
-    }
-
-    @Override
-    public void initData() {
+        /***DrawerLayout*/
+        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, Gravity.LEFT);
     }
 
     @Override
@@ -76,6 +77,30 @@ public class HomeActivity extends BaseActivity implements Toolbar.OnMenuItemClic
     @Override
     public void onPageSelected(int position) {
         mIndicator.select(position);
+
+        //tablayout
+        switch (position){
+            case 0:
+            case 2:
+            case 3:
+                mTabLayout.setVisibility(View.GONE);
+                break;
+            case 1:
+                mTabLayout.setVisibility(View.VISIBLE);
+                resetTab(position);
+                break;
+        }
+    }
+
+    private void resetTab(int position){
+        if (mTabLayout != null){
+            mTabLayout.removeAllTabs();
+        }
+
+        if (position == 1){
+            mTabLayout.addTab(mTabLayout.newTab().setText("TAB 1"));
+            mTabLayout.addTab(mTabLayout.newTab().setText("TAB 2"));
+        }
     }
 
     @Override
@@ -102,6 +127,18 @@ public class HomeActivity extends BaseActivity implements Toolbar.OnMenuItemClic
     @Override
     public void onTabSelect(int position) {
         mViewPager.setCurrentItem(position, true);
+    }
+
+    private void openDrawerLayout(){
+        mDrawerLayout.openDrawer(Gravity.LEFT);
+        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED,
+                Gravity.LEFT);
+    }
+
+    private void closeDrawerLayout(){
+        mDrawerLayout.closeDrawer(Gravity.LEFT);
+        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED,
+                Gravity.LEFT);
     }
 
     @Override

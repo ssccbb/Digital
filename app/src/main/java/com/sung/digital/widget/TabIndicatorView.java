@@ -47,10 +47,10 @@ public class TabIndicatorView extends LinearLayout implements Animation.Animatio
     }
 
     private void initData() {
-        TabIndicatorModel tab1 = new TabIndicatorModel("照片", R.drawable.ic_menu_camera);
-        TabIndicatorModel tab2 = new TabIndicatorModel("相册", R.drawable.ic_menu_gallery);
-        TabIndicatorModel tab3 = new TabIndicatorModel("发送", R.drawable.ic_menu_send);
-        TabIndicatorModel tab4 = new TabIndicatorModel("视频", R.drawable.ic_menu_slideshow);
+        TabIndicatorModel tab1 = new TabIndicatorModel("专辑", R.drawable.ic_menu_album);
+        TabIndicatorModel tab2 = new TabIndicatorModel("MV", R.drawable.ic_menu_video);
+        TabIndicatorModel tab3 = new TabIndicatorModel("消息", R.drawable.ic_menu_msg);
+        TabIndicatorModel tab4 = new TabIndicatorModel("我的", R.drawable.ic_menu_mine);
         models.add(tab1);
         models.add(tab2);
         models.add(tab3);

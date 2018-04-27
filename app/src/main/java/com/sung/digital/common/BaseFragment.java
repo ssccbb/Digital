@@ -3,6 +3,7 @@ package com.sung.digital.common;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +34,10 @@ public abstract class BaseFragment extends Fragment {
     public abstract void initView();
 
     public abstract void setData();
+
+    public void bindViewPager(TabLayout tabLayout){
+
+    }
 
     protected <T extends View> T findView(@IdRes int id) {
         if (getView() != null) {
