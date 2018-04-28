@@ -13,10 +13,14 @@ import com.sung.digital.common.BaseFragment;
  */
 
 public class HomePager2Fragment extends BaseFragment implements ViewPager.OnPageChangeListener,TabLayout.OnTabSelectedListener{
+    private static HomePager2Fragment instance;
     private ViewPager mPager;
     private TabLayout mTab;
 
     public static HomePager2Fragment newInstance(){
+        if (instance != null){
+            return instance;
+        }
         return new HomePager2Fragment();
     }
 

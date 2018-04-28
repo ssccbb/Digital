@@ -67,7 +67,7 @@ public class HomeActivity extends BaseActivity implements Toolbar.OnMenuItemClic
         /***Indicator*/
         mIndicator.addOnTabIndicatorSelectListener(this);
         /***DrawerLayout*/
-        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, Gravity.LEFT);
+        closeDrawerLayout();
     }
 
     @Override

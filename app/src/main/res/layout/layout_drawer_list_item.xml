@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="?selectableItemBackground"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:gravity="center">
+    
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_menu_album"/>
+
+    <TextView
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:text="我的设置"
+        android:textSize="14sp"
+        android:layout_marginLeft="20dp"/>
+    <android.support.v7.widget.SwitchCompat
+        android:visibility="visible"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content" />
+</LinearLayout>

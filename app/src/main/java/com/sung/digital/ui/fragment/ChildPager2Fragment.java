@@ -19,10 +19,14 @@ import java.util.List;
  */
 
 public class ChildPager2Fragment extends BaseFragment {
+    private static ChildPager2Fragment instance;
     private RecyclerView mList;
     private List mData = new ArrayList();
 
     public static ChildPager2Fragment newInstance(){
+        if (instance != null){
+            return instance;
+        }
         return new ChildPager2Fragment();
     }
 
@@ -41,6 +45,7 @@ public class ChildPager2Fragment extends BaseFragment {
 
     @Override
     public void setData() {
+        if (mData != null) mData.clear();
         for (int i = 0; i < 10; i++) {
             mData.add(i);
         }

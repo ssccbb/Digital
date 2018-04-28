@@ -19,10 +19,14 @@ import java.util.List;
  */
 
 public class ChildPager1Fragment extends BaseFragment {
+    private static ChildPager1Fragment instance;
     private RecyclerView mList;
     private List mData = new ArrayList();
 
     public static ChildPager1Fragment newInstance(){
+        if (instance != null){
+            return instance;
+        }
         return new ChildPager1Fragment();
     }
 
@@ -41,7 +45,8 @@ public class ChildPager1Fragment extends BaseFragment {
 
     @Override
     public void setData() {
-        for (int i = 0; i < 100; i++) {
+        if (mData != null) mData.clear();
+        for (int i = 0; i < 20; i++) {
             mData.add(i);
         }
         mList.setLayoutManager(new LinearLayoutManager(getContext()));

@@ -8,8 +8,12 @@ import com.sung.digital.common.BaseFragment;
  */
 
 public class HomePager3Fragment extends BaseFragment {
+    private static HomePager3Fragment instance;
 
     public static HomePager3Fragment newInstance(){
+        if (instance != null){
+            return instance;
+        }
         return new HomePager3Fragment();
     }
 

@@ -3,6 +3,7 @@ package com.sung.digital.ui.fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,10 +20,14 @@ import java.util.List;
  */
 
 public class HomePager1Fragment extends BaseFragment {
+    private static HomePager1Fragment instance;
     private RecyclerView mList;
     private List mData = new ArrayList();
 
     public static HomePager1Fragment newInstance(){
+        if (instance != null){
+            return instance;
+        }
         return new HomePager1Fragment();
     }
 
@@ -41,7 +46,8 @@ public class HomePager1Fragment extends BaseFragment {
 
     @Override
     public void setData() {
-        for (int i = 0; i < 100; i++) {
+        if (mData != null) mData.clear();
+        for (int i = 0; i < 20; i++) {
             mData.add(i);
         }
         mList.setLayoutManager(new LinearLayoutManager(getContext()));
