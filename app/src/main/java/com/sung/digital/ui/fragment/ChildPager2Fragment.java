@@ -66,7 +66,7 @@ public class ChildPager2Fragment extends BaseFragment {
 
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new ListHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item,null,false));
+            return new ListHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.view_list_item,null,false));
         }
 
         @Override

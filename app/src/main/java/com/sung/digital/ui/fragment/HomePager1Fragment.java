@@ -3,15 +3,9 @@ package com.sung.digital.ui.fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-
 import com.sung.digital.R;
+import com.sung.digital.adapter.IndexListAdapter;
 import com.sung.digital.common.BaseFragment;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +22,7 @@ public class HomePager1Fragment extends BaseFragment {
         if (instance != null){
             return instance;
         }
-        return new HomePager1Fragment();
+        return instance = new HomePager1Fragment();
     }
 
     public HomePager1Fragment() {
@@ -51,47 +45,9 @@ public class HomePager1Fragment extends BaseFragment {
             mData.add(i);
         }
         mList.setLayoutManager(new LinearLayoutManager(getContext()));
-        mList.setAdapter(new ListAdapter(mData));
+        mList.setAdapter(new IndexListAdapter(getContext(), mData));
         mList.setItemAnimator(new DefaultItemAnimator());
         mList.setHasFixedSize(true);
-    }
-
-    class ListAdapter extends RecyclerView.Adapter {
-        private List data = new ArrayList();
-
-        public ListAdapter(List data) {
-            if (data != null){
-                this.data = data;
-            }
-        }
-
-        @Override
-        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new ListHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item,null,false));
-        }
-
-        @Override
-        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-            ((ListHolder)holder).onBind(position);
-        }
-
-        @Override
-        public int getItemCount() {
-            return data.size();
-        }
-
-        class ListHolder extends RecyclerView.ViewHolder {
-            private TextView text;
-
-            public ListHolder(View itemView) {
-                super(itemView);
-                text = itemView.findViewById(R.id.text);
-            }
-
-            void onBind(int position){
-                text.setText(String.valueOf(data.get(position)));
-            }
-        }
     }
 
 }
