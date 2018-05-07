@@ -4,7 +4,9 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import com.sung.digital.R;
-import com.sung.digital.adapter.IndexListAdapter;
+import com.sung.digital.adapter.MultiLayoutAdapter;
+import com.sung.digital.adapter.RecyclerDecoration;
+import com.sung.digital.bean.MultiListItemModel;
 import com.sung.digital.common.BaseFragment;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,10 +44,12 @@ public class HomePager1Fragment extends BaseFragment {
     public void setData() {
         if (mData != null) mData.clear();
         for (int i = 0; i < 20; i++) {
-            mData.add(i);
+            mData.add(new MultiListItemModel());
         }
         mList.setLayoutManager(new LinearLayoutManager(getContext()));
-        mList.setAdapter(new IndexListAdapter(getContext(), mData));
+        mList.setAdapter(new MultiLayoutAdapter(getContext(), mData, true));
+        mList.addItemDecoration(new RecyclerDecoration(
+                getContext(),R.color.colorDivider,R.dimen.common_divider_larger_height));
         mList.setItemAnimator(new DefaultItemAnimator());
         mList.setHasFixedSize(true);
     }

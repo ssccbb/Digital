@@ -5,6 +5,8 @@ package com.sung.digital.common;
  */
 
 public class Constants {
+    //banner
+    public static final int LIST_BANNER_MODE = -1;
     //主图
     public static final int LIST_MAJOR_PIC_MODE = 0;
     //左边图 右边文字（主文字）

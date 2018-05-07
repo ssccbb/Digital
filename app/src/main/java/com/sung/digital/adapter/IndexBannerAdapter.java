@@ -38,7 +38,7 @@ public class IndexBannerAdapter extends PagerAdapter {
         for (int i = 0; i < mData.size(); i++) {
             View item = inflater.inflate(R.layout.view_banner_item,null,false);
             ImageView img = item.findViewById(R.id.banner_img);
-            img.setImageResource(R.drawable.default_banner);
+            img.setImageResource(R.drawable.ic_loading_fail);
             mViews.add(item);
         }
     }

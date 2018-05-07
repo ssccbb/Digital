@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.sung.digital.R;
+import com.sung.digital.adapter.MultiLayoutAdapter;
+import com.sung.digital.adapter.RecyclerDecoration;
+import com.sung.digital.bean.MultiListItemModel;
 import com.sung.digital.common.BaseFragment;
 
 import java.util.ArrayList;
@@ -47,50 +50,14 @@ public class ChildPager1Fragment extends BaseFragment {
     public void setData() {
         if (mData != null) mData.clear();
         for (int i = 0; i < 20; i++) {
-            mData.add(i);
+            mData.add(new MultiListItemModel());
         }
+        mList.setAdapter(new MultiLayoutAdapter(getContext(),mData,false));
         mList.setLayoutManager(new LinearLayoutManager(getContext()));
-        mList.setAdapter(new ListAdapter(mData));
+        mList.addItemDecoration(new RecyclerDecoration(
+                getContext(),R.color.colorDivider,R.dimen.common_divider_larger_height));
         mList.setItemAnimator(new DefaultItemAnimator());
         mList.setHasFixedSize(true);
-    }
-
-    class ListAdapter extends RecyclerView.Adapter {
-        private List data = new ArrayList();
-
-        public ListAdapter(List data) {
-            if (data != null){
-                this.data = data;
-            }
-        }
-
-        @Override
-        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new ListHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.view_list_item,null,false));
-        }
-
-        @Override
-        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-            ((ListHolder)holder).onBind(position);
-        }
-
-        @Override
-        public int getItemCount() {
-            return data.size();
-        }
-
-        class ListHolder extends RecyclerView.ViewHolder {
-            private TextView text;
-
-            public ListHolder(View itemView) {
-                super(itemView);
-                text = itemView.findViewById(R.id.text);
-            }
-
-            void onBind(int position){
-                text.setText(String.valueOf(data.get(position)));
-            }
-        }
     }
 
 }

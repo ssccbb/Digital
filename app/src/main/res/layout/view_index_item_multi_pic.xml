@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="?selectableItemBackground">
     <include
         layout="@layout/view_index_item_head"/>
 
@@ -20,21 +21,23 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/iv_content_img_1"
-                android:scaleType="centerCrop"
+                android:scaleType="centerInside"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="160dp"
+                android:layout_height="180dp"
                 android:layout_marginRight="5dp"
-                android:src="@drawable/default_item"/>
+                android:src="@drawable/ic_loading_fail"
+                android:background="@android:color/white"/>
 
             <ImageView
                 android:id="@+id/iv_content_img_2"
-                android:scaleType="centerCrop"
+                android:scaleType="centerInside"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="160dp"
+                android:layout_height="180dp"
                 android:layout_marginLeft="5dp"
-                android:src="@drawable/default_item"/>
+                android:src="@drawable/ic_loading_fail"
+                android:background="@android:color/white"/>
         </LinearLayout>
 
         <TextView
