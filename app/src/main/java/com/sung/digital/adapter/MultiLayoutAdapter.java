@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.sung.digital.R;
 import com.sung.digital.bean.MultiListItemModel;
 import com.sung.digital.common.Constants;
+import com.sung.digital.widget.PagerIndicatorView;
 import com.sung.digital.widget.banner.AutoScrollViewPager;
 import com.sung.digital.widget.banner.ScaleTransformer;
 
@@ -92,11 +93,13 @@ public class MultiLayoutAdapter extends RecyclerView.Adapter {
 
     class BannerItemHolder extends RecyclerView.ViewHolder {
         private AutoScrollViewPager autoViewPager;
+        private PagerIndicatorView autoIndicator;
         private TextView autoTittleText;
 
         public BannerItemHolder(View itemView) {
             super(itemView);
             autoViewPager = itemView.findViewById(R.id.auto_scroll_view_pager);
+            autoIndicator = itemView.findViewById(R.id.auto_scroll_pager_indicator);
             autoTittleText = itemView.findViewById(R.id.auto_scroll_pager_tittle);
         }
 
@@ -106,6 +109,8 @@ public class MultiLayoutAdapter extends RecyclerView.Adapter {
             bannerData.add(1);
             bannerData.add(2);
             bannerData.add(3);
+            autoIndicator.setPagerCount(4);
+            autoIndicator.setVisibility(View.VISIBLE);
             IndexBannerAdapter adapter = new IndexBannerAdapter(mContext,bannerData);
             autoViewPager.setAdapter(adapter);
             autoViewPager.setInterval(3000);
@@ -121,6 +126,7 @@ public class MultiLayoutAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onPageSelected(int position) {
                     autoTittleText.setText("一篇典型的surface book体验报告"+position);
+                    autoIndicator.setSelectPosition(position);
                 }
 
                 @Override
