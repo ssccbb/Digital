@@ -27,6 +27,7 @@ public class HomeActivity extends BaseActivity implements Toolbar.OnMenuItemClic
     private Toolbar mToolBar;
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
+    private HomePagerAdapter mHomeAdapter;
     private TabIndicatorView mIndicator;
 
     @Override
@@ -58,14 +59,10 @@ public class HomeActivity extends BaseActivity implements Toolbar.OnMenuItemClic
         });
         mToolBar.setOnMenuItemClickListener(this);
         /***ViewPager*/
-        HomePagerAdapter adapter =
-                new HomePagerAdapter(this, getSupportFragmentManager());
-        mViewPager.setAdapter(adapter);
+        mHomeAdapter = new HomePagerAdapter(this, getSupportFragmentManager());
+        mViewPager.setAdapter(mHomeAdapter);
         mViewPager.setOffscreenPageLimit(0);
         mViewPager.addOnPageChangeListener(this);
-        /***TabLayout*/
-        adapter.getItem(1).bindViewPager(mTabLayout);
-        adapter.getItem(2).bindViewPager(mTabLayout);
         /***Indicator*/
         mIndicator.addOnTabIndicatorSelectListener(this);
         /***DrawerLayout*/
@@ -100,17 +97,9 @@ public class HomeActivity extends BaseActivity implements Toolbar.OnMenuItemClic
     private void resetTab(int position){
         if (mTabLayout != null){
             mTabLayout.removeAllTabs();
-        }
-
-        if (position == 1){
-            mTabLayout.addTab(mTabLayout.newTab().setText("最新"));
-            mTabLayout.addTab(mTabLayout.newTab().setText("热门"));
-        }
-        if (position == 2){
-            mTabLayout.addTab(mTabLayout.newTab().setText("鲸图"));
-            mTabLayout.addTab(mTabLayout.newTab().setText("鲸闻"));
-            mTabLayout.addTab(mTabLayout.newTab().setText("社区"));
-            mTabLayout.addTab(mTabLayout.newTab().setText("闲置"));
+            mTabLayout.clearOnTabSelectedListeners();
+            mTabLayout.setupWithViewPager(null);
+            mHomeAdapter.getItem(position).bindViewPager(mTabLayout);
         }
     }
 

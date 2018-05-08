@@ -53,6 +53,11 @@ public class FindPagerFragment extends BaseFragment implements ViewPager.OnPageC
         if (tabLayout == null) return;
         this.mTab = tabLayout;
         mTab.setupWithViewPager(mPager);
+        mTab.removeAllTabs();
+        mTab.addTab(mTab.newTab().setText("鲸图"));
+        mTab.addTab(mTab.newTab().setText("鲸闻"));
+        mTab.addTab(mTab.newTab().setText("社区"));
+        mTab.addTab(mTab.newTab().setText("闲置"));
         mTab.addOnTabSelectedListener(this);
     }
 
@@ -63,7 +68,7 @@ public class FindPagerFragment extends BaseFragment implements ViewPager.OnPageC
 
     @Override
     public void onPageSelected(int position) {
-        if (mTab != null) {
+        if (mTab != null && mTab.getTabAt(position) != null) {
             mTab.getTabAt(position).select();
         }
     }

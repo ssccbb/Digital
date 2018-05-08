@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 
 import com.sung.digital.R;
 import com.sung.digital.adapter.GroupChildPagerAdapter;
@@ -52,6 +53,9 @@ public class GroupPagerFragment extends BaseFragment implements ViewPager.OnPage
         if (tabLayout == null) return;
         this.mTab = tabLayout;
         mTab.setupWithViewPager(mPager);
+        mTab.removeAllTabs();
+        mTab.addTab(mTab.newTab().setText("最新"));
+        mTab.addTab(mTab.newTab().setText("热门"));
         mTab.addOnTabSelectedListener(this);
     }
 
@@ -62,7 +66,7 @@ public class GroupPagerFragment extends BaseFragment implements ViewPager.OnPage
 
     @Override
     public void onPageSelected(int position) {
-        if (mTab != null) {
+        if (mTab != null && mTab.getTabAt(position) != null) {
             mTab.getTabAt(position).select();
         }
     }
