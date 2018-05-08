@@ -1,13 +1,15 @@
-package com.sung.digital.ui.fragment;
+package com.sung.digital.ui.fragment.child;
 
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+
 import com.sung.digital.R;
-import com.sung.digital.adapter.MultiLayoutAdapter;
+import com.sung.digital.adapter.HomeMultiLayoutAdapter;
 import com.sung.digital.adapter.RecyclerDecoration;
 import com.sung.digital.bean.MultiListItemModel;
 import com.sung.digital.common.BaseFragment;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,24 +17,24 @@ import java.util.List;
  * Created by sung on 2018/4/24.
  */
 
-public class HomePager1Fragment extends BaseFragment {
-    private static HomePager1Fragment instance;
+public class GroupNewestPagerFragment extends BaseFragment {
+    private static GroupNewestPagerFragment instance;
     private RecyclerView mList;
     private List mData = new ArrayList();
 
-    public static HomePager1Fragment newInstance(){
+    public static GroupNewestPagerFragment newInstance(){
         if (instance != null){
             return instance;
         }
-        return instance = new HomePager1Fragment();
+        return new GroupNewestPagerFragment();
     }
 
-    public HomePager1Fragment() {
+    public GroupNewestPagerFragment() {
     }
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_home_pager_1;
+        return R.layout.fragment_home_pager;
     }
 
     @Override
@@ -46,8 +48,8 @@ public class HomePager1Fragment extends BaseFragment {
         for (int i = 0; i < 20; i++) {
             mData.add(new MultiListItemModel());
         }
+        mList.setAdapter(new HomeMultiLayoutAdapter(getContext(),mData,false,false));
         mList.setLayoutManager(new LinearLayoutManager(getContext()));
-        mList.setAdapter(new MultiLayoutAdapter(getContext(), mData, true));
         mList.addItemDecoration(new RecyclerDecoration(
                 getContext(),R.color.colorDivider,R.dimen.common_divider_larger_height));
         mList.setItemAnimator(new DefaultItemAnimator());

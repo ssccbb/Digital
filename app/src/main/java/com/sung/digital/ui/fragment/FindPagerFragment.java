@@ -1,46 +1,48 @@
 package com.sung.digital.ui.fragment;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 
 import com.sung.digital.R;
-import com.sung.digital.adapter.ChildPagerAdapter;
-import com.sung.digital.adapter.HomePagerAdapter;
+import com.sung.digital.adapter.FindChildPagerAdapter;
+import com.sung.digital.adapter.GroupChildPagerAdapter;
 import com.sung.digital.common.BaseFragment;
 
 /**
  * Created by sung on 2018/4/24.
  */
 
-public class HomePager2Fragment extends BaseFragment implements ViewPager.OnPageChangeListener,TabLayout.OnTabSelectedListener{
-    private static HomePager2Fragment instance;
+public class FindPagerFragment extends BaseFragment implements ViewPager.OnPageChangeListener,TabLayout.OnTabSelectedListener {
+    private static FindPagerFragment instance;
     private ViewPager mPager;
     private TabLayout mTab;
 
-    public static HomePager2Fragment newInstance(){
+    public static FindPagerFragment newInstance(){
         if (instance != null){
             return instance;
         }
-        return new HomePager2Fragment();
+        return new FindPagerFragment();
     }
 
-    public HomePager2Fragment() {
+    public FindPagerFragment() {
     }
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_home_pager_2;
+        return R.layout.fragment_find_pager;
     }
 
     @Override
     public void initView() {
-        mPager = findView(R.id.view_pager);
+        mPager = findView(R.id.find_view_pager);
     }
 
     @Override
     public void setData() {
-        ChildPagerAdapter adapter =
-                new ChildPagerAdapter(getContext(), getChildFragmentManager());
+        FindChildPagerAdapter adapter =
+                new FindChildPagerAdapter(getContext(), getChildFragmentManager());
         mPager.setAdapter(adapter);
         mPager.setOffscreenPageLimit(0);
         mPager.addOnPageChangeListener(this);
@@ -61,7 +63,9 @@ public class HomePager2Fragment extends BaseFragment implements ViewPager.OnPage
 
     @Override
     public void onPageSelected(int position) {
-        if (mTab != null) mTab.getTabAt(position).select();
+        if (mTab != null) {
+            mTab.getTabAt(position).select();
+        }
     }
 
     @Override
@@ -71,7 +75,9 @@ public class HomePager2Fragment extends BaseFragment implements ViewPager.OnPage
 
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
-        mPager.setCurrentItem(tab.getPosition(),true);
+        if (mPager != null) {
+            mPager.setCurrentItem(tab.getPosition(),true);
+        }
     }
 
     @Override

@@ -17,6 +17,7 @@ import android.view.View;
 import com.sung.digital.R;
 import com.sung.digital.adapter.HomePagerAdapter;
 import com.sung.digital.common.BaseActivity;
+import com.sung.digital.common.Constants;
 import com.sung.digital.widget.TabIndicatorView;
 
 public class HomeActivity extends BaseActivity implements Toolbar.OnMenuItemClickListener,
@@ -64,6 +65,7 @@ public class HomeActivity extends BaseActivity implements Toolbar.OnMenuItemClic
         mViewPager.addOnPageChangeListener(this);
         /***TabLayout*/
         adapter.getItem(1).bindViewPager(mTabLayout);
+        adapter.getItem(2).bindViewPager(mTabLayout);
         /***Indicator*/
         mIndicator.addOnTabIndicatorSelectListener(this);
         /***DrawerLayout*/
@@ -77,18 +79,21 @@ public class HomeActivity extends BaseActivity implements Toolbar.OnMenuItemClic
     @Override
     public void onPageSelected(int position) {
         mIndicator.select(position);
+        mToolBar.setTitle(position == 0 ?
+                getResources().getString(R.string.app_name ) : Constants.home_indicator_tag[position]);
 
         //tablayout
         switch (position){
             case 0:
-            case 2:
             case 3:
                 mTabLayout.setVisibility(View.GONE);
                 break;
             case 1:
+            case 2:
                 mTabLayout.setVisibility(View.VISIBLE);
                 resetTab(position);
                 break;
+
         }
     }
 
@@ -98,8 +103,14 @@ public class HomeActivity extends BaseActivity implements Toolbar.OnMenuItemClic
         }
 
         if (position == 1){
-            mTabLayout.addTab(mTabLayout.newTab().setText("TAB 1"));
-            mTabLayout.addTab(mTabLayout.newTab().setText("TAB 2"));
+            mTabLayout.addTab(mTabLayout.newTab().setText("最新"));
+            mTabLayout.addTab(mTabLayout.newTab().setText("热门"));
+        }
+        if (position == 2){
+            mTabLayout.addTab(mTabLayout.newTab().setText("鲸图"));
+            mTabLayout.addTab(mTabLayout.newTab().setText("鲸闻"));
+            mTabLayout.addTab(mTabLayout.newTab().setText("社区"));
+            mTabLayout.addTab(mTabLayout.newTab().setText("闲置"));
         }
     }
 

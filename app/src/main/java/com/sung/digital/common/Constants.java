@@ -5,6 +5,10 @@ package com.sung.digital.common;
  */
 
 public class Constants {
+    public static final String[] home_indicator_tag = {"首页","小组","发现","消息"};
+
+    //每日一言
+    public static final int LIST_DAILY_QUOTATION_MODE = -2;
     //banner
     public static final int LIST_BANNER_MODE = -1;
     //主图

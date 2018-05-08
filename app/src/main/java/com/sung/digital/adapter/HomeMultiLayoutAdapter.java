@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sung.digital.R;
@@ -24,15 +25,17 @@ import java.util.List;
  * 多布局adapter
  */
 
-public class MultiLayoutAdapter extends RecyclerView.Adapter {
-    private static String TAG = MultiLayoutAdapter.class.getSimpleName();
+public class HomeMultiLayoutAdapter extends RecyclerView.Adapter {
+    private static String TAG = HomeMultiLayoutAdapter.class.getSimpleName();
     private List<MultiListItemModel> mData = new ArrayList();
     private boolean hasBanner = false;
+    private boolean hasDailyQuotation = false;
     private Context mContext;
 
-    public MultiLayoutAdapter(Context context,List<MultiListItemModel> mData, boolean hasBanner) {
+    public HomeMultiLayoutAdapter(Context context, List<MultiListItemModel> mData, boolean hasBanner, boolean hasDailyQuotation) {
         this.mData = mData;
         this.hasBanner = hasBanner;
+        this.hasDailyQuotation = hasDailyQuotation;
         this.mContext = context;
     }
 
@@ -41,20 +44,25 @@ public class MultiLayoutAdapter extends RecyclerView.Adapter {
         View view = null;
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         if (viewType == Constants.LIST_BANNER_MODE){
-            view = inflater.inflate(R.layout.view_banner,null,false);
+            view = inflater.inflate(R.layout.view_banner,parent,false);
             view.setTag(Constants.LIST_BANNER_MODE);
             return new BannerItemHolder(view);
         }
+        if (viewType == Constants.LIST_DAILY_QUOTATION_MODE){
+            view = inflater.inflate(R.layout.view_daily_quotes,parent,false);
+            view.setTag(Constants.LIST_DAILY_QUOTATION_MODE);
+            return new DailyQuotationHolder(view);
+        }
         if (viewType == Constants.LIST_MAJOR_TEXT_MODE){
-            view = inflater.inflate(R.layout.view_index_item_major_text, null, false);
+            view = inflater.inflate(R.layout.view_index_item_major_text, parent, false);
             view.setTag(Constants.LIST_MAJOR_TEXT_MODE);
         }
-        if (viewType == Constants.LIST_MULTI_PIC_MODE){
-            view = inflater.inflate(R.layout.view_index_item_major_pic, null, false);
-            view.setTag(Constants.LIST_MAJOR_TEXT_MODE);
+        if (viewType == Constants.LIST_MAJOR_PIC_MODE){
+            view = inflater.inflate(R.layout.view_index_item_major_pic, parent, false);
+            view.setTag(Constants.LIST_MAJOR_PIC_MODE);
         }
         if (view == null) {
-            view = inflater.inflate(R.layout.view_index_item_multi_pic, null, false);
+            view = inflater.inflate(R.layout.view_index_item_multi_pic, parent, false);
             view.setTag(Constants.LIST_MULTI_PIC_MODE);
         }
         return new MultiItemHolder(view);
@@ -64,6 +72,9 @@ public class MultiLayoutAdapter extends RecyclerView.Adapter {
     public int getItemViewType(int position) {
         if (hasBanner && position == 0){
             return Constants.LIST_BANNER_MODE;
+        }
+        if (hasDailyQuotation && position == 1){
+            return Constants.LIST_DAILY_QUOTATION_MODE;
         }
         if (mData != null && !mData.isEmpty() && mData.size() > position){
             return mData.get(position).mode;
@@ -75,20 +86,35 @@ public class MultiLayoutAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof MultiItemHolder){
             MultiItemHolder multiItemHolder = (MultiItemHolder) holder;
-            multiItemHolder.onBind(hasBanner ? position - 1 : position);
+            int data_position = position;
+            if (hasBanner){
+                data_position--;
+            }
+            if (hasDailyQuotation){
+                data_position--;
+            }
+            multiItemHolder.onBind(data_position);
         }
         if (holder instanceof BannerItemHolder){
             BannerItemHolder bannerItemHolder = (BannerItemHolder) holder;
             bannerItemHolder.onBind();
         }
+        if (holder instanceof DailyQuotationHolder){
+            DailyQuotationHolder dailyQuotationHolder = (DailyQuotationHolder) holder;
+            dailyQuotationHolder.onBind();
+        }
     }
 
     @Override
     public int getItemCount() {
+        int count = mData.size();
         if (hasBanner){
-            return mData.size() + 1;
+            count = count + 1;
         }
-        return mData.size();
+        if (hasDailyQuotation){
+            count = count + 1;
+        }
+        return count;
     }
 
     class BannerItemHolder extends RecyclerView.ViewHolder {
@@ -111,7 +137,7 @@ public class MultiLayoutAdapter extends RecyclerView.Adapter {
             bannerData.add(3);
             autoIndicator.setPagerCount(4);
             autoIndicator.setVisibility(View.VISIBLE);
-            IndexBannerAdapter adapter = new IndexBannerAdapter(mContext,bannerData);
+            HomeBannerAdapter adapter = new HomeBannerAdapter(mContext,bannerData);
             autoViewPager.setAdapter(adapter);
             autoViewPager.setInterval(3000);
             autoViewPager.setPageTransformer(false, new ScaleTransformer());
@@ -134,6 +160,39 @@ public class MultiLayoutAdapter extends RecyclerView.Adapter {
 
                 }
             });
+        }
+    }
+
+    class DailyQuotationHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        private View root;
+        private ImageView close;
+        private TextView more;
+
+        public DailyQuotationHolder(View itemView) {
+            super(itemView);
+            root = itemView;
+            close = itemView.findViewById(R.id.iv_daily_close);
+            more = itemView.findViewById(R.id.tv_daily_more);
+        }
+
+        void onBind(){
+            root.setOnClickListener(this);
+            close.setOnClickListener(this);
+            more.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (v == close){
+                hasDailyQuotation = false;
+                HomeMultiLayoutAdapter.this.notifyDataSetChanged();
+            }
+            if (v == more){
+
+            }
+            if (v == root){
+
+            }
         }
     }
 
@@ -160,7 +219,7 @@ public class MultiLayoutAdapter extends RecyclerView.Adapter {
 
         void onBind(int position){
             MultiListItemModel data = mData.get(position);
-            if (mode == -1) return;//banner不管
+            if (mode == -1 || mode == -2) return;//banner&每日一言不管
 
             itemView.setOnClickListener(this);
             if (mode == Constants.LIST_MAJOR_PIC_MODE){

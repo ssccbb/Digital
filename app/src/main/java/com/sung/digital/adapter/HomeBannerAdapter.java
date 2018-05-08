@@ -16,13 +16,13 @@ import java.util.List;
  * Created by sung on 2018/5/3.
  */
 
-public class IndexBannerAdapter extends PagerAdapter {
-    private static String TAG = IndexBannerAdapter.class.getSimpleName();
+public class HomeBannerAdapter extends PagerAdapter {
+    private static String TAG = HomeBannerAdapter.class.getSimpleName();
     private List mData = new ArrayList();
     private List<View> mViews = new ArrayList<>();
     private Context mContext;
 
-    public IndexBannerAdapter(Context mContext, List mData) {
+    public HomeBannerAdapter(Context mContext, List mData) {
         this.mData = mData;
         this.mContext = mContext;
         if (mData != null && !mData.isEmpty()){

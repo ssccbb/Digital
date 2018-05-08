@@ -7,22 +7,22 @@ import com.sung.digital.common.BaseFragment;
  * Created by sung on 2018/4/24.
  */
 
-public class HomePager3Fragment extends BaseFragment {
-    private static HomePager3Fragment instance;
+public class NoticePagerFragment extends BaseFragment {
+    private static NoticePagerFragment instance;
 
-    public static HomePager3Fragment newInstance(){
+    public static NoticePagerFragment newInstance(){
         if (instance != null){
             return instance;
         }
-        return new HomePager3Fragment();
+        return new NoticePagerFragment();
     }
 
-    public HomePager3Fragment() {
+    public NoticePagerFragment() {
     }
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_home_pager_3;
+        return R.layout.fragment_notice_pager;
     }
 
     @Override

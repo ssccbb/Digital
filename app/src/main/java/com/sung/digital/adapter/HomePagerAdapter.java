@@ -1,15 +1,14 @@
 package com.sung.digital.adapter;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.sung.digital.common.BaseFragment;
-import com.sung.digital.ui.fragment.HomePager1Fragment;
-import com.sung.digital.ui.fragment.HomePager2Fragment;
-import com.sung.digital.ui.fragment.HomePager3Fragment;
-import com.sung.digital.ui.fragment.HomePager4Fragment;
+import com.sung.digital.ui.fragment.HomePagerFragment;
+import com.sung.digital.ui.fragment.GroupPagerFragment;
+import com.sung.digital.ui.fragment.FindPagerFragment;
+import com.sung.digital.ui.fragment.NoticePagerFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,10 +31,10 @@ public class HomePagerAdapter extends FragmentPagerAdapter {
 
     private void initFragments(){
         if (fragments == null) fragments = new ArrayList();
-        HomePager1Fragment fragment1 = HomePager1Fragment.newInstance();
-        HomePager2Fragment fragment2 = HomePager2Fragment.newInstance();
-        HomePager3Fragment fragment3 = HomePager3Fragment.newInstance();
-        HomePager4Fragment fragment4 = HomePager4Fragment.newInstance();
+        HomePagerFragment fragment1 = HomePagerFragment.newInstance();
+        GroupPagerFragment fragment2 = GroupPagerFragment.newInstance();
+        FindPagerFragment fragment3 = FindPagerFragment.newInstance();
+        NoticePagerFragment fragment4 = NoticePagerFragment.newInstance();
         fragments.add(fragment1);
         fragments.add(fragment2);
         fragments.add(fragment3);

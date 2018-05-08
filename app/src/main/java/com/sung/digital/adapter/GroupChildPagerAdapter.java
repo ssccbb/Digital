@@ -5,12 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.sung.digital.ui.fragment.ChildPager1Fragment;
-import com.sung.digital.ui.fragment.ChildPager2Fragment;
-import com.sung.digital.ui.fragment.HomePager1Fragment;
-import com.sung.digital.ui.fragment.HomePager2Fragment;
-import com.sung.digital.ui.fragment.HomePager3Fragment;
-import com.sung.digital.ui.fragment.HomePager4Fragment;
+import com.sung.digital.ui.fragment.child.GroupNewestPagerFragment;
+import com.sung.digital.ui.fragment.child.GroupHotestPagerFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,13 +15,13 @@ import java.util.List;
  * Created by sung on 2018/4/24.
  */
 
-public class ChildPagerAdapter extends FragmentPagerAdapter {
+public class GroupChildPagerAdapter extends FragmentPagerAdapter {
     private FragmentManager manager;
     private List<Fragment> fragments = new ArrayList();
 
     private Context context;
 
-    public ChildPagerAdapter(Context context, FragmentManager fm) {
+    public GroupChildPagerAdapter(Context context, FragmentManager fm) {
         super(fm);
         this.context = context;
         initFragments();
@@ -33,8 +29,8 @@ public class ChildPagerAdapter extends FragmentPagerAdapter {
 
     private void initFragments(){
         if (fragments == null) fragments = new ArrayList();
-        ChildPager1Fragment fragment1 = ChildPager1Fragment.newInstance();
-        ChildPager2Fragment fragment2 = ChildPager2Fragment.newInstance();
+        GroupNewestPagerFragment fragment1 = GroupNewestPagerFragment.newInstance();
+        GroupHotestPagerFragment fragment2 = GroupHotestPagerFragment.newInstance();
         fragments.add(fragment1);
         fragments.add(fragment2);
     }

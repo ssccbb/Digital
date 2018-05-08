@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:foreground="?selectableItemBackground"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/tv_daily_tittle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="每日一言"
+        android:textColor="@android:color/black"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tv_daily_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="查看更多"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="14sp"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_daily_img"
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorDivider"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_loading_fail"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_daily_tittle" />
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_margin="15dp"
+        android:alpha="0.4"
+        android:src="@drawable/ic_quotation_mark_left"
+        app:layout_constraintLeft_toLeftOf="@+id/iv_daily_img"
+        app:layout_constraintTop_toTopOf="@+id/iv_daily_img" />
+
+    <ImageView
+        android:id="@+id/iv_daily_close"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_margin="15dp"
+        android:alpha="0.4"
+        android:scaleType="fitXY"
+        android:src="@android:drawable/ic_menu_close_clear_cancel"
+        app:layout_constraintRight_toRightOf="@+id/iv_daily_img"
+        app:layout_constraintTop_toTopOf="@+id/iv_daily_img" />
+
+    <TextView
+        android:id="@+id/tv_quotation_words"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:alpha="0.4"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_daily_img"
+        app:layout_constraintLeft_toLeftOf="@+id/iv_daily_img"
+        app:layout_constraintRight_toRightOf="@+id/iv_daily_img"
+        app:layout_constraintTop_toTopOf="@+id/iv_daily_img"
+        android:text="无法本能的被富有魅力的事物吸引的人，没有资格谈论创造。" />
+
+    <TextView
+        android:id="@+id/tv_quotation_author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:alpha="0.4"
+        android:text="--村上龙"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_daily_img"
+        app:layout_constraintRight_toRightOf="@+id/iv_daily_img" />
+
+</android.support.constraint.ConstraintLayout>

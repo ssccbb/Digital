@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 
 import com.sung.digital.R;
 import com.sung.digital.bean.TabIndicatorModel;
+import com.sung.digital.common.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,10 +48,10 @@ public class TabIndicatorView extends LinearLayout implements Animation.Animatio
     }
 
     private void initData() {
-        TabIndicatorModel tab1 = new TabIndicatorModel("专辑", R.drawable.ic_menu_album);
-        TabIndicatorModel tab2 = new TabIndicatorModel("MV", R.drawable.ic_menu_video);
-        TabIndicatorModel tab3 = new TabIndicatorModel("消息", R.drawable.ic_menu_msg);
-        TabIndicatorModel tab4 = new TabIndicatorModel("我的", R.drawable.ic_menu_mine);
+        TabIndicatorModel tab1 = new TabIndicatorModel(Constants.home_indicator_tag[0], R.drawable.ic_menu_index);
+        TabIndicatorModel tab2 = new TabIndicatorModel(Constants.home_indicator_tag[1], R.drawable.ic_menu_group);
+        TabIndicatorModel tab3 = new TabIndicatorModel(Constants.home_indicator_tag[2], R.drawable.ic_menu_find);
+        TabIndicatorModel tab4 = new TabIndicatorModel(Constants.home_indicator_tag[3], R.drawable.ic_menu_msg);
         models.add(tab1);
         models.add(tab2);
         models.add(tab3);

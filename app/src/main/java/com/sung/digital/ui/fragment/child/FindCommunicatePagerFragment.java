@@ -1,4 +1,4 @@
-package com.sung.digital.ui.fragment;
+package com.sung.digital.ui.fragment.child;
 
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,24 +18,24 @@ import java.util.List;
  * Created by sung on 2018/4/24.
  */
 
-public class ChildPager2Fragment extends BaseFragment {
-    private static ChildPager2Fragment instance;
+public class FindCommunicatePagerFragment extends BaseFragment {
+    private static FindCommunicatePagerFragment instance;
     private RecyclerView mList;
     private List mData = new ArrayList();
 
-    public static ChildPager2Fragment newInstance(){
+    public static FindCommunicatePagerFragment newInstance(){
         if (instance != null){
             return instance;
         }
-        return new ChildPager2Fragment();
+        return new FindCommunicatePagerFragment();
     }
 
-    public ChildPager2Fragment() {
+    public FindCommunicatePagerFragment() {
     }
 
     @Override
     public int getLayoutId() {
-        return R.layout.fragment_home_pager_1;
+        return R.layout.fragment_home_pager;
     }
 
     @Override
