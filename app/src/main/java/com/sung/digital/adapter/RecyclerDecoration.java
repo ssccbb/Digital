@@ -16,10 +16,11 @@ import com.sung.digital.R;
 public class RecyclerDecoration extends RecyclerView.ItemDecoration {
     private Paint dividerPaint;
     private int dividerHeight;
+    private boolean full_mode = false;
 
     public RecyclerDecoration(Context context) {
         dividerPaint = new Paint();
-        dividerPaint.setColor(context.getResources().getColor(R.color.colorDivider));
+        dividerPaint.setColor(context.getResources().getColor(android.R.color.transparent));
         dividerHeight = (int) context.getResources().getDimension(R.dimen.common_divider_normal_height);
     }
 
@@ -29,10 +30,23 @@ public class RecyclerDecoration extends RecyclerView.ItemDecoration {
         dividerHeight = (int) context.getResources().getDimension(resHeight);
     }
 
+    public RecyclerDecoration(Context context, int resColor, int resHeight, boolean full_mode) {
+        dividerPaint = new Paint();
+        dividerPaint.setColor(context.getResources().getColor(resColor));
+        dividerHeight = (int) context.getResources().getDimension(resHeight);
+        this.full_mode = full_mode;
+    }
+
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
-        outRect.bottom = dividerHeight;
+        if (!full_mode){
+            outRect.bottom = dividerHeight;
+        }else {
+            outRect.left = dividerHeight/2;
+            outRect.right = dividerHeight/2;
+            outRect.bottom = dividerHeight;
+        }
     }
 
     @Override
@@ -42,12 +56,19 @@ public class RecyclerDecoration extends RecyclerView.ItemDecoration {
         int childCount = parent.getChildCount();
         for (int i = 0; i < childCount; i++) {
             View childAt = parent.getChildAt(i);
-            float bottom = childAt.getBottom() + dividerHeight;
-            c.drawRect(parent.getPaddingLeft(),
-                    childAt.getBottom(),
-                    parent.getWidth() - parent.getPaddingRight(),
-                    bottom,
-                    dividerPaint);
+            if (!full_mode) {
+                c.drawRect(parent.getPaddingLeft(),
+                        childAt.getBottom(),
+                        parent.getWidth() - parent.getPaddingRight(),
+                        childAt.getBottom() + dividerHeight,
+                        dividerPaint);
+            }else {
+                c.drawRect(parent.getPaddingLeft()  + dividerHeight / 2,
+                        childAt.getBottom(),
+                        parent.getWidth() - parent.getPaddingRight() - dividerHeight/2,
+                        childAt.getBottom() + dividerHeight,
+                        dividerPaint);
+            }
         }
     }
 }

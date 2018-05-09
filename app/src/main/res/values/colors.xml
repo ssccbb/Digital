@@ -5,6 +5,7 @@
     <color name="colorAccent">#ff000000</color>
 
     <color name="colorTheme">#ffffff</color>
+    <color name="colorBackground">#cdcdcd</color>
     <color name="colorDivider">#28cdcdcd</color>
 
     <color name="view_indicator_default_color">#60000000</color>

@@ -51,7 +51,7 @@ public class GroupNewestPagerFragment extends BaseFragment {
         mList.setAdapter(new HomeMultiLayoutAdapter(getContext(),mData,false,false));
         mList.setLayoutManager(new LinearLayoutManager(getContext()));
         mList.addItemDecoration(new RecyclerDecoration(
-                getContext(),R.color.colorDivider,R.dimen.common_divider_larger_height));
+                getContext(),android.R.color.transparent,R.dimen.common_divider_larger_height));
         mList.setItemAnimator(new DefaultItemAnimator());
         mList.setHasFixedSize(true);
     }
