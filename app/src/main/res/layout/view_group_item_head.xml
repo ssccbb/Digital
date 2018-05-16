@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:text="小组活动"
+        android:id="@+id/tv_tittle"
+        android:textSize="14sp"
+        android:layout_marginTop="@dimen/dp_5"
+        android:textColor="@android:color/darker_gray"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rc_list"
+        app:layout_constraintTop_toBottomOf="@+id/tv_tittle"
+        android:layout_marginTop="@dimen/dp_5"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"/>
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:foreground="?selectableItemBackground"
+        android:background="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@+id/rc_list"
+        android:layout_marginTop="@dimen/dp_5"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:padding="@dimen/dp_10">
+        <ImageView
+            android:id="@+id/img1"
+            android:scaleType="fitXY"
+            android:layout_marginLeft="-8dp"
+            android:layout_toRightOf="@+id/img2"
+            android:src="@mipmap/ic_launcher_round"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+        <ImageView
+            android:id="@+id/img2"
+            android:scaleType="fitXY"
+            android:layout_marginLeft="-8dp"
+            android:layout_toRightOf="@+id/img3"
+            android:src="@mipmap/ic_launcher_round"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+        <ImageView
+            android:id="@+id/img3"
+            android:scaleType="fitXY"
+            android:layout_marginLeft="-8dp"
+            android:layout_toRightOf="@+id/img4"
+            android:src="@mipmap/ic_launcher_round"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+        <ImageView
+            android:id="@+id/img4"
+            android:scaleType="fitXY"
+            android:layout_alignParentLeft="true"
+            android:src="@mipmap/ic_launcher_round"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textSize="14sp"
+            android:text="我的小组"
+            android:layout_toLeftOf="@+id/tv_enter"
+            android:textColor="@android:color/darker_gray"/>
+        <TextView
+            android:text=">"
+            android:textSize="20sp"
+            android:id="@+id/tv_enter"
+            android:layout_marginLeft="2dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textColor="@android:color/holo_blue_dark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>
