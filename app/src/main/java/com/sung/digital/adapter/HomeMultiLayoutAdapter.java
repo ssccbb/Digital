@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sung.digital.R;
-import com.sung.digital.bean.MultiListItemModel;
+import com.sung.digital.bean.HomeMultiListItemModel;
 import com.sung.digital.common.Constants;
 import com.sung.digital.widget.PagerIndicatorView;
 import com.sung.digital.widget.banner.AutoScrollViewPager;
@@ -27,12 +27,12 @@ import java.util.List;
 
 public class HomeMultiLayoutAdapter extends RecyclerView.Adapter {
     private static String TAG = HomeMultiLayoutAdapter.class.getSimpleName();
-    private List<MultiListItemModel> mData = new ArrayList();
+    private List<HomeMultiListItemModel> mData = new ArrayList();
     private boolean hasBanner = false;
     private boolean hasDailyQuotation = false;
     private Context mContext;
 
-    public HomeMultiLayoutAdapter(Context context, List<MultiListItemModel> mData, boolean hasBanner, boolean hasDailyQuotation) {
+    public HomeMultiLayoutAdapter(Context context, List<HomeMultiListItemModel> mData, boolean hasBanner, boolean hasDailyQuotation) {
         this.mData = mData;
         this.hasBanner = hasBanner;
         this.hasDailyQuotation = hasDailyQuotation;
@@ -218,7 +218,7 @@ public class HomeMultiLayoutAdapter extends RecyclerView.Adapter {
         }
 
         void onBind(int position){
-            MultiListItemModel data = mData.get(position);
+            HomeMultiListItemModel data = mData.get(position);
             if (mode == -1 || mode == -2) return;//banner&每日一言不管
 
             itemView.setOnClickListener(this);

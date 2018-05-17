@@ -9,6 +9,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.sung.digital.R;
+import com.sung.digital.adapter.GroupMultiLayoutAdapter;
+import com.sung.digital.adapter.HomeMultiLayoutAdapter;
+import com.sung.digital.adapter.RecyclerDecoration;
+import com.sung.digital.bean.GroupMultiListItemModel;
+import com.sung.digital.bean.HomeMultiListItemModel;
 import com.sung.digital.common.BaseFragment;
 
 import java.util.ArrayList;
@@ -46,51 +51,15 @@ public class GroupHotestPagerFragment extends BaseFragment {
     @Override
     public void setData() {
         if (mData != null) mData.clear();
-        for (int i = 0; i < 10; i++) {
-            mData.add(i);
+        for (int i = 0; i < 20; i++) {
+            mData.add(new GroupMultiListItemModel());
         }
         mList.setLayoutManager(new LinearLayoutManager(getContext()));
-        mList.setAdapter(new ListAdapter(mData));
+        mList.setAdapter(new GroupMultiLayoutAdapter(mData, getContext(), false));
+        mList.addItemDecoration(new RecyclerDecoration(getContext(),
+                android.R.color.transparent,R.dimen.common_divider_larger_height,true));
         mList.setItemAnimator(new DefaultItemAnimator());
         mList.setHasFixedSize(true);
-    }
-
-    class ListAdapter extends RecyclerView.Adapter {
-        private List data = new ArrayList();
-
-        public ListAdapter(List data) {
-            if (data != null){
-                this.data = data;
-            }
-        }
-
-        @Override
-        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new ListHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.view_list_item,null,false));
-        }
-
-        @Override
-        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-            ((ListHolder)holder).onBind(position);
-        }
-
-        @Override
-        public int getItemCount() {
-            return data.size();
-        }
-
-        class ListHolder extends RecyclerView.ViewHolder {
-            private TextView text;
-
-            public ListHolder(View itemView) {
-                super(itemView);
-                text = itemView.findViewById(R.id.text);
-            }
-
-            void onBind(int position){
-                text.setText(String.valueOf(data.get(position)));
-            }
-        }
     }
 
 }

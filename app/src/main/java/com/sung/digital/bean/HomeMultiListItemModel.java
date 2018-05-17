@@ -6,10 +6,10 @@ import java.util.Random;
  * Created by sung on 2018/5/4.
  */
 
-public class MultiListItemModel {
+public class HomeMultiListItemModel {
     public int mode;
 
-    public MultiListItemModel() {
+    public HomeMultiListItemModel() {
         mode = new Random().nextInt(3);
     }
 }

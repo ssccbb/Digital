@@ -1,13 +1,17 @@
 package com.sung.digital.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.sung.digital.R;
-import com.sung.digital.bean.MultiListItemModel;
+import com.sung.digital.bean.GroupMultiListItemModel;
+import com.sung.digital.bean.GroupMultiListItemModel;
 import com.sung.digital.common.Constants;
 
 import java.util.ArrayList;
@@ -19,12 +23,14 @@ import java.util.List;
 
 public class GroupMultiLayoutAdapter extends RecyclerView.Adapter {
     private static String TAG = GroupMultiLayoutAdapter.class.getSimpleName();
-    private List<MultiListItemModel> mData = new ArrayList();
+    private List<GroupMultiListItemModel> mData = new ArrayList();
     private Context mContext;
+    private boolean mHasHead = true;
 
-    public GroupMultiLayoutAdapter(List<MultiListItemModel> mData, Context mContext) {
+    public GroupMultiLayoutAdapter(List<GroupMultiListItemModel> mData, Context mContext, boolean hasHead) {
         this.mData = mData;
         this.mContext = mContext;
+        this.mHasHead = hasHead;
     }
 
     @Override
@@ -63,18 +69,18 @@ public class GroupMultiLayoutAdapter extends RecyclerView.Adapter {
         }
         if (holder instanceof MultiItemHolder){
             MultiItemHolder multiItemHolder = (MultiItemHolder) holder;
-            multiItemHolder.onBind(position - 1);
+            multiItemHolder.onBind(mHasHead ? (position - 1) : position);
         }
     }
 
     @Override
     public int getItemCount() {
-        return mData.size() + 1;
+        return mHasHead ? (mData.size() + 1) : mData.size();
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 0){
+        if (position == 0 && mHasHead){
             return Constants.GROUP_HEAD_ITEM;
         }
         if (mData != null && !mData.isEmpty() && mData.size() > position){
@@ -87,18 +93,69 @@ public class GroupMultiLayoutAdapter extends RecyclerView.Adapter {
      * 头有自己的逻辑
      * */
     class HeadHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private RecyclerView headList;
 
         public HeadHolder(View itemView) {
             super(itemView);
+            headList = itemView.findViewById(R.id.rc_list);
         }
 
         void onBind(){
-
+            LinearLayoutManager manager = new LinearLayoutManager(mContext);
+            manager.setOrientation(LinearLayoutManager.HORIZONTAL);
+            headList.setLayoutManager(manager);
+            headList.setAdapter(new HeadListAdapter(mData));
+            headList.addItemDecoration(new RecyclerDecoration(
+                    mContext,android.R.color.transparent,R.dimen.common_divider_larger_height,true));
+            headList.setItemAnimator(new DefaultItemAnimator());
+            headList.setHasFixedSize(true);
         }
 
         @Override
         public void onClick(View v) {
 
+        }
+
+        class HeadListAdapter extends RecyclerView.Adapter {
+            private List data = new ArrayList();
+
+            public HeadListAdapter(List data) {
+                this.data = data;
+            }
+
+            @Override
+            public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                ImageView view = new ImageView(parent.getContext());
+                view.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                view.setLayoutParams(new ViewGroup.LayoutParams(
+                        500, ViewGroup.LayoutParams.MATCH_PARENT));
+                return new HeadListHolder(view);
+            }
+
+            @Override
+            public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+                if (holder instanceof HeadListHolder){
+                    ((HeadListHolder) holder).onBind(position);
+                }
+            }
+
+            @Override
+            public int getItemCount() {
+                return data.size();
+            }
+
+            class HeadListHolder extends RecyclerView.ViewHolder {
+                private ImageView rootView;
+
+                public HeadListHolder(View itemView) {
+                    super(itemView);
+                    rootView = (ImageView) itemView;
+                }
+
+                void onBind(int position){
+                    rootView.setImageResource(R.color.colorPrimary);
+                }
+            }
         }
     }
 
@@ -128,7 +185,7 @@ public class GroupMultiLayoutAdapter extends RecyclerView.Adapter {
         }
 
         void onBind(int position){
-            MultiListItemModel data = mData.get(position);
+            GroupMultiListItemModel data = mData.get(position);
             if (mode == -1) return;//头不管
 
             itemView.setOnClickListener(this);

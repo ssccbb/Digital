@@ -5,9 +5,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.sung.digital.R;
+import com.sung.digital.adapter.GroupMultiLayoutAdapter;
 import com.sung.digital.adapter.HomeMultiLayoutAdapter;
 import com.sung.digital.adapter.RecyclerDecoration;
-import com.sung.digital.bean.MultiListItemModel;
+import com.sung.digital.bean.GroupMultiListItemModel;
+import com.sung.digital.bean.HomeMultiListItemModel;
 import com.sung.digital.common.BaseFragment;
 
 import java.util.ArrayList;
@@ -46,12 +48,12 @@ public class GroupNewestPagerFragment extends BaseFragment {
     public void setData() {
         if (mData != null) mData.clear();
         for (int i = 0; i < 20; i++) {
-            mData.add(new MultiListItemModel());
+            mData.add(new GroupMultiListItemModel());
         }
-        mList.setAdapter(new HomeMultiLayoutAdapter(getContext(),mData,false,false));
         mList.setLayoutManager(new LinearLayoutManager(getContext()));
-        mList.addItemDecoration(new RecyclerDecoration(
-                getContext(),android.R.color.transparent,R.dimen.common_divider_larger_height));
+        mList.setAdapter(new GroupMultiLayoutAdapter(mData, getContext(), true));
+        mList.addItemDecoration(new RecyclerDecoration(getContext(),
+                android.R.color.transparent,R.dimen.common_divider_larger_height,true));
         mList.setItemAnimator(new DefaultItemAnimator());
         mList.setHasFixedSize(true);
     }
